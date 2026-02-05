@@ -1,0 +1,25 @@
+class Solution {
+    static ArrayList<Integer> subarraySum(int[] arr, int target) {
+        int low = 0;
+        int sum = 0;
+        ArrayList<Integer> li = new ArrayList<>();
+
+        for(int high = 0; high < arr.length; high++){
+            sum += arr[high];
+
+            while(sum > target && low <= high){
+                sum -= arr[low];
+                low++;
+            }
+
+            if(sum == target){
+                li.add(low + 1);   // 1-based index
+                li.add(high + 1);
+                return li;
+            }
+        }
+
+        li.add(-1);
+        return li;
+    }
+}
