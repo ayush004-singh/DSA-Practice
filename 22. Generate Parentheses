@@ -1,0 +1,27 @@
+class Solution {
+
+    public static void dfs(int open, int close, String curr, int n, List<String> res) {
+        
+        // Base Case: valid string formed
+        if (open == close && curr.length() == 2 * n) {
+            res.add(curr);
+            return;
+        }
+
+        // Add opening bracket
+        if (open < n) {
+            dfs(open + 1, close, curr + "(", n, res);
+        }
+
+        // Add closing bracket (only if valid)
+        if (close < open) {
+            dfs(open, close + 1, curr + ")", n, res);
+        }
+    }
+
+    public List<String> generateParenthesis(int n) {
+        List<String> result = new ArrayList<>();
+        dfs(0, 0, "", n, result);
+        return result;
+    }
+}
