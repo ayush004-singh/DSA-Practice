@@ -1,0 +1,36 @@
+class Solution {
+
+    TreeNode ans = null;
+
+    public boolean dfs(TreeNode root, TreeNode p, TreeNode q){
+
+        if(root == null) return false;
+
+        boolean left = dfs(root.left, p, q);
+
+        boolean right = dfs(root.right, p, q);
+
+        boolean self = (root == p || root == q);
+
+        int total = 0;
+
+        if(left) total++;
+        if(right) total++;
+        if(self) total++;
+
+        if(total >= 2 && ans == null){
+            ans = root;
+        }
+
+        return left || right || self;
+    }
+
+    public TreeNode lowestCommonAncestor(TreeNode root,
+                                         TreeNode p,
+                                         TreeNode q) {
+
+        dfs(root, p, q);
+
+        return ans;
+    }
+}
